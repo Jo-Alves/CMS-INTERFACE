@@ -1,7 +1,7 @@
-var request = require("request");
-var host = "http://localhost:3000";
+var Base = require("../../app/models/base");
 
 var Usuario = function(usuario){
+	this.restName = "usuarios";
 	if(usuario)
 	{
 		this.id = usuario.id;
@@ -17,45 +17,11 @@ var Usuario = function(usuario){
 		this.senha = "";
 		this.email = "";
 	}
-	
-	this.salvar = callback => {
-		let usuario = this
-		request.head(`${host}/usuarios.json`, function () {
-			let token = this.response.headers.auth_token;
-			request.post({ 
-			url: `${host}/usuarios.json`,
-			headers: { "auth_token": token }, 
-			form: usuario },
-			function (error, response, body) {
-				if(response.statusCode === 201){
-					callback({
-						erro: false
-					})
-				}
-				else{
-					var json = JSON.parse(response.body)
-					callback({
-						erro: true,
-						mensagem: json.mensagem
-					})
-				}
-			})
-		})
-	};
 };
 
+Usuario.prototype = new Base();
+
 Usuario.todos = callback => {
-	request.get(`${host}/usuarios.json`,function (error, response, body) {
-		var json = JSON.parse(response.body)
-		if(response.statusCode === 200){
-			callback(json)
-		}
-		else{
-			callback({
-				erro: true,
-				mensagem: json.mensagem
-			})
-		}
-	})
+	new Usuario().todos(callback)
 }
 module.exports = Usuario;
