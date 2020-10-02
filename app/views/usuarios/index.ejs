@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<style>
+		table thead tr th, table tbody tr td{
+			border: 1px solid #ccc;
+			padding: 10px;
+			text-align: center;
+		}
+		
+		table{
+			border-collapse: collapse;
+		}
+		thead tr th{
+			background-color: #ccc;
+		}
+		
+		table tbody tr:nth-child(odd){
+			background-color: aquamarine;	
+		}
+		
+		table tbody tr:nth-child(even){
+			background-color: orange;		
+		}
+		
+		button{
+			padding: 5px 10px;
+			border: none;
+			outline: none;
+			border-radius: 2px;
+			cursor: pointer;
+		}
+		
+		.alter{
+			background-color: yellow;
+		}
+		
+		.delete{
+			background-color: red;
+		}
+	</style>
+  </head>
+  <body>
+    <h1>Usuários</h1>
+    <p>Dados dos usuário na API</p>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>Login</th>
+				<th>Senha</th>
+				<th>Email</th>
+				<th>Alterar</th>
+				<th>Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% usuarios.forEach(({id, nome, login, senha, email}) => { %>
+				<tr>
+					<td><%= id %></td>
+					<td><%= nome %></td>
+					<td><%= login %></td>
+					<td><%= senha %></td>
+					<td><%= email %></td>
+					<td><button class="alter">Alterar</button></td>
+					<td><button class="delete">Excluir</button></td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	
+  </body>
+</html>
